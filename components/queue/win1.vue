@@ -187,18 +187,21 @@ const style = computed(() => ({
 
 <template>
   <div ref="containerRef" :style="style"
-    class="fixed h-[200px] w-[100px] rounded-lg border border-gray-100 bg-white shadow-lg overflow-hidden">
-    <div class="flex justify-center pt-2">
-      <div ref="dragHandleRef"
-        class="h-1 w-16 rounded-full bg-gray-400/80 cursor-move select-none touch-none hover:bg-gray-500 transition-colors"
-        @pointerdown.prevent="onDragPointerDown" />
+    class="fixed  w-[300px] h-[200px] flex flex-col rounded-lg border border-gray-200 bg-white overflow-hidden">
+    <div ref="dragHandleRef" class=" shrink-0 flex group justify-center items-center h-6 cursor-move  "
+      @pointerdown.prevent="onDragPointerDown">
+      <div
+        class="h-1 w-12 rounded-full bg-gray-300  select-none touch-none group-hover:bg-gray-400/80 transition-colors" />
+    </div>
+
+    <div class=" flex-1 min-h-0 ">
       <slot />
     </div>
 
     <div ref="resizeHandleRef"
       class="absolute right-0 bottom-0 h-6 w-6 cursor-se-resize select-none touch-none text-gray-400 hover:text-gray-600 transition-colors"
       @pointerdown.prevent.stop="onResizePointerDown">
-      <svg class="absolute right-1.5 bottom-1.5 h-3.5 w-3.5" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true">
+      <svg class="absolute right-0 bottom-0 h-3.5 w-3.5" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true">
         <circle cx="12" cy="12" r="1" />
         <circle cx="8" cy="12" r="1" />
         <circle cx="12" cy="8" r="1" />
