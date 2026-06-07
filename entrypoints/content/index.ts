@@ -1,24 +1,29 @@
 import App from "./App.vue";
+import "~/assets/style.css";
+import "~/assets/theme.css";
 
 export default defineContentScript({
   matches: ["*://*.deepseek.com/*"],
+  cssInjectionMode: "ui",
   async main(ctx) {
-    const ui = createIntegratedUi(ctx, {
+    if (!document.body) return;
+
+    const ui = await createShadowRootUi(ctx, {
+      name: "petdex-ui",
       position: "inline",
       anchor: "body",
-      onMount: (container) => {
-        // Create the app and mount it to the UI container
+      onMount: (container, shadow) => {
         const app = createApp(App);
+
+        app.provide("shadowRoot", shadow);
         app.mount(container);
         return app;
       },
       onRemove: (app) => {
-        // Unmount the app when the UI is removed
         app?.unmount();
       },
     });
 
-    // Call mount to add the UI to the DOM
     ui.mount();
   },
 });

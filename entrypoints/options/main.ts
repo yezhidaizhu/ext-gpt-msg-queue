@@ -1,4 +1,7 @@
-import '~/assets/tailwind.css';
-import App from './App.vue';
+import "~/assets/style.css";
+import App from "./App.vue";
+import 'floating-vue/dist/style.css';
 
-createApp(App).mount('#app');
+const app = createApp(App);
+
+app.mount("#app");
