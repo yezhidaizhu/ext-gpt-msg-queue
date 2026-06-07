@@ -1,0 +1,94 @@
+/* ========== 1. 原始色板（不直接用于组件） ========== */
+:root {
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #ecedef;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #2C2C2E;
+  --color-blue-500: #3b82f6;
+  --color-blue-600: #2563eb;
+  --color-red-500: #ef4444;
+  --color-green-500: #10b981;
+}
+
+/* ========== 2. 浅色主题（默认） ========== */
+:root,
+.light {
+  /* 背景色 */
+  --bg-primary: var(--color-white);
+  --bg-secondary: var(--color-gray-50);
+  --bg-tertiary: var(--color-gray-100);
+  --bg-inverse: var(--color-gray-900);
+
+  /* 文本色 */
+  --text-primary: var(--color-gray-900);
+  --text-secondary: var(--color-gray-600);
+  --text-tertiary: var(--color-gray-400);
+  --text-inverse: var(--color-white);
+
+  /* 边框色 */
+  --border-light: var(--color-gray-200);
+  --border-medium: var(--color-gray-300);
+  --border-heavy: var(--color-gray-400);
+
+  /* 品牌色 */
+  --brand-primary: var(--color-blue-500);
+  --brand-primary-hover: var(--color-blue-600);
+
+  /* 状态色 */
+  --success: var(--color-green-500);
+  --error: var(--color-red-500);
+
+  /* 阴影 */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+
+  /* 滚动条颜色（浅色） */
+  --scrollbar-track: var(--color-gray-100);
+  --scrollbar-thumb: var(--color-gray-400);
+  --scrollbar-thumb-hover: var(--color-gray-500);
+}
+
+/* ========== 3. 深色主题 ========== */
+.dark {
+  --bg-primary: var(--color-gray-900);
+  --bg-secondary: var(--color-gray-800);
+  --bg-tertiary: var(--color-gray-700);
+  --bg-inverse: var(--color-white);
+
+  --text-primary: var(--color-gray-50);
+  --text-secondary: var(--color-gray-300);
+  --text-tertiary: var(--color-gray-400);
+  --text-inverse: var(--color-gray-900);
+
+  --border-light: var(--color-gray-700);
+  --border-medium: var(--color-gray-600);
+  --border-heavy: var(--color-gray-500);
+
+  --brand-primary: var(--color-blue-500);
+  --brand-primary-hover: var(--color-blue-400);
+
+  --success: var(--color-green-500);
+  --error: var(--color-red-500);
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+
+  /* 滚动条颜色（深色） */
+  --scrollbar-track: var(--color-gray-800);
+  --scrollbar-thumb: var(--color-gray-600);
+  --scrollbar-thumb-hover: var(--color-gray-500);
+}
+
+body {
+  color: var(--text-primary);
+}

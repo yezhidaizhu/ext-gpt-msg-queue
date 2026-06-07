@@ -1,3 +1,4 @@
+import { useColorMode } from "@vueuse/core";
 import App from "./App.vue";
 import "~/assets/style.css";
 import "~/assets/theme.css";
@@ -13,7 +14,7 @@ export default defineContentScript({
       position: "inline",
       anchor: "body",
       onMount: (container, shadow) => {
-        const app = createApp(App);
+        const app = createApp(App, { shadowRoot: shadow });
 
         app.provide("shadowRoot", shadow);
         app.mount(container);

@@ -60,7 +60,7 @@ const onChgWinPos = (pos: any) => {
 
   <Transition name="fade-in">
     <button v-if="isMinWin"
-      class="fixed right-4 bottom-4 flex size-14 items-center justify-center rounded-lg bg-blue-500 text-4xl text-white shadow-lg"
+      class="fixed right-4 bottom-4 flex size-14 items-center justify-center rounded-lg bg-[var(--brand-primary)] text-4xl text-[var(--text-inverse)] shadow-lg"
       @click="isMinWin = false">
       sd
     </button>

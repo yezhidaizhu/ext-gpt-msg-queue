@@ -3,4 +3,5 @@ type QueueListItem = {
   content: string;
 };
 
+type ColorMode = "light" | "dark" | "auto";
 

@@ -2,13 +2,18 @@
 import QueueContainer from '@/components/QueueContainer.vue';
 import { DeepseekConfig } from '@/config/chat-textarea';
 import { useChatStauts } from '@/hooks/useChatStauts';
+import { useColorMode } from '@/hooks/useColorMode';
 import { ChatBtnStatus } from '@/types/chat';
 
+const props = withDefaults(defineProps<{
+  shadowRoot: ShadowRoot
+}>(), {
+})
 
 const list = ref<QueueListItem[]>([
-  // { id: '1', content: '测试' },
-  // { id: '2', content: '测试 2' },
-  // { id: '3', content: '测试 7' },
+  { id: '1', content: '测试' },
+  { id: '2', content: '测试 2' },
+  { id: '3', content: '测试 7' },
 ]);
 
 const handleItemAct = {
@@ -37,19 +42,24 @@ const { btnStatus, setTextareaVal, sendPrompt } = useChatStauts(DeepseekConfig, 
 });
 
 onMounted(() => {
-  watch(btnStatus, () => {
-    if (!list.value?.length) return;
+  // watch(btnStatus, () => {
+  //   if (!list.value?.length) return;
 
-    if (btnStatus.value == ChatBtnStatus.IDLE) {
-      disabledDragListItem.value = true
-      const item = list.value.shift();
-      if (item?.content) {
-        sendPrompt(item?.content)
-      }
-      disabledDragListItem.value = false;
-    }
-  })
+  //   if (btnStatus.value == ChatBtnStatus.IDLE) {
+  //     disabledDragListItem.value = true
+  //     const item = list.value.shift();
+  //     if (item?.content) {
+  //       sendPrompt(item?.content)
+  //     }
+  //     disabledDragListItem.value = false;
+  //   }
+  // })
 })
+
+useColorMode({
+  target: props.shadowRoot?.querySelector?.('body')
+});
+
 
 </script>
 <template>

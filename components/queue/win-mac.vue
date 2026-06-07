@@ -235,10 +235,10 @@ watch([width, height, right, bottom], () => {
     class="fixed flex flex-col rounded-xl border border-gray-100 bg-white shadow-lg ">
     <!-- mac 风格头部，可拖拽 -->
     <div ref="dragHandleRef"
-      class="group/bar relative shrink-0 flex items-center justify-center h-6 px-2 bg-gray-50 border-b border-gray-100 select-none touch-none"
+      class="group/bar relative shrink-0 flex items-center justify-center h-6 px-2 border-b border-gray-100 select-none touch-none"
       :class="isMaxWin ? '' : 'cursor-move'" @pointerdown.prevent="onDragPointerDown">
       <!-- 左上角按钮 -->
-      <div class=" absolute left-2 flex group items-center gap-1.5 cursor-auto " style="--btn-size:16px"
+      <div class=" absolute left-2 flex group items-center gap-1.5 cursor-auto " style="--btn-size:15px"
         @pointerdown.stop>
         <!-- close -->
         <span class="relative flex size-[var(--btn-size)] items-center justify-center rounded-full bg-red-400"

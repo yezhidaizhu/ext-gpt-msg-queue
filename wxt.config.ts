@@ -12,4 +12,8 @@ export default defineConfig({
       plugins: [tailwindcss({})],
     };
   },
+  manifest: {
+    name:"Chat Prompt Queue",
+    permissions: ["storage"],
+  },
 });
