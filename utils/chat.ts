@@ -40,7 +40,3 @@ export function fillPromptInput(input: AiPlatformInput, prompt: string): void {
 
   dispatchInputEvents(input);
 }
-
-export const $ = (selector: string) => {
-  return document.querySelector(selector);
-};

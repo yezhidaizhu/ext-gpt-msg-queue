@@ -1,60 +1,40 @@
 <script setup lang="ts">
 import QueueContainer from '@/components/QueueContainer.vue';
-import { DeepseekConfig } from '@/config/chat-textarea';
-import { useChatStauts } from '@/hooks/useChatStauts';
+import { useAppSettings } from '@/hooks/useAppSettings';
+import { useChatStatus } from '@/hooks/useChatStatus';
 import { useColorMode } from '@/hooks/useColorMode';
-import { ChatBtnStatus } from '@/types/chat';
+import { usePromptQueue } from '@/hooks/usePromptQueue';
+import { getAiPlatformAdapter } from '@/platforms';
 
 const props = withDefaults(defineProps<{
   shadowRoot: ShadowRoot
 }>(), {
 })
 
-const list = ref<QueueListItem[]>([
-  { id: '1', content: '测试' },
-  { id: '2', content: '测试 2' },
-  { id: '3', content: '测试 7' },
-]);
-
-const handleItemAct = {
-  guide: (data: QueueListItem) => {
-  },
-  del: (data: QueueListItem) => {
-    list.value = toValue(list).filter(d => d.id != data?.id);
-  },
-  eidt: (data: QueueListItem) => {
-    setTextareaVal(data?.content);
-    list.value = toValue(list).filter(d => d.id != data?.id);
-  },
+const aiPlatform = getAiPlatformAdapter();
+if (!aiPlatform) {
+  throw new Error(`Unsupported AI platform: ${location.href}`);
 }
 
-const disabledDragListItem = ref(false);
-
-const { btnStatus, setTextareaVal, sendPrompt } = useChatStauts(DeepseekConfig, {
+const appSettings = useAppSettings();
+let addPromptToQueue = (_val?: string) => {};
+const { btnStatus, interruptAndSendPrompt, sendPrompt, setPrompt } = useChatStatus(aiPlatform, {
+  appSettings,
   onProcessSend: (val) => {
-    if (!val) return;
-
-    list.value.push({
-      id: new Date().getTime() + '',
-      content: val,
-    })
+    addPromptToQueue(val);
   }
 });
 
-onMounted(() => {
-  // watch(btnStatus, () => {
-  //   if (!list.value?.length) return;
-
-  //   if (btnStatus.value == ChatBtnStatus.IDLE) {
-  //     disabledDragListItem.value = true
-  //     const item = list.value.shift();
-  //     if (item?.content) {
-  //       sendPrompt(item?.content)
-  //     }
-  //     disabledDragListItem.value = false;
-  //   }
-  // })
-})
+const { disabledDragListItem, list, addPrompt, delPrompt, editPrompt, steerPrompt } = usePromptQueue({
+  appSettings,
+  sender: {
+    btnStatus,
+    interruptAndSendPrompt,
+    sendPrompt,
+    setPrompt,
+  },
+});
+addPromptToQueue = addPrompt;
 
 useColorMode({
   target: props.shadowRoot?.querySelector?.('body')
@@ -63,6 +43,6 @@ useColorMode({
 
 </script>
 <template>
-  <QueueContainer v-if="list.length" v-model:list="list" :disabledDragListItem="disabledDragListItem"
-    @guide="handleItemAct.guide" @del="handleItemAct.del" @edit="handleItemAct.eidt"></QueueContainer>
+  <QueueContainer v-if="appSettings.enableQueue && list.length" v-model:list="list" :disabledDragListItem="disabledDragListItem"
+    :show-steer="appSettings.showSteer" @guide="steerPrompt" @del="delPrompt" @edit="editPrompt"></QueueContainer>
 </template>

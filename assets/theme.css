@@ -12,8 +12,10 @@
   --color-gray-700: #374151;
   --color-gray-800: #1f2937;
   --color-gray-900: #2C2C2E;
+  --color-gray-950: #18181b;
   --color-blue-500: #3b82f6;
   --color-blue-600: #2563eb;
+  --color-blue-400: #60a5fa;
   --color-red-500: #ef4444;
   --color-green-500: #10b981;
 }
@@ -25,13 +27,18 @@
   --bg-primary: var(--color-white);
   --bg-secondary: var(--color-gray-50);
   --bg-tertiary: var(--color-gray-100);
+  --bg-hover: var(--color-gray-100);
+  --bg-active: var(--color-gray-200);
   --bg-inverse: var(--color-gray-900);
+  --bg-tooltip: var(--color-white);
 
   /* 文本色 */
   --text-primary: var(--color-gray-900);
   --text-secondary: var(--color-gray-600);
   --text-tertiary: var(--color-gray-400);
   --text-inverse: var(--color-white);
+  --text-tooltip: var(--color-gray-900);
+  --border-tooltip: var(--color-gray-200);
 
   /* 边框色 */
   --border-light: var(--color-gray-200);
@@ -59,19 +66,24 @@
 
 /* ========== 3. 深色主题 ========== */
 .dark {
-  --bg-primary: var(--color-gray-900);
-  --bg-secondary: var(--color-gray-800);
-  --bg-tertiary: var(--color-gray-700);
+  --bg-primary: var(--color-gray-950);
+  --bg-secondary: #242428;
+  --bg-tertiary: #33333a;
+  --bg-hover: #3f3f46;
+  --bg-active: #4b5563;
   --bg-inverse: var(--color-white);
+  --bg-tooltip: #33333a;
 
   --text-primary: var(--color-gray-50);
-  --text-secondary: var(--color-gray-300);
-  --text-tertiary: var(--color-gray-400);
+  --text-secondary: #d4d4d8;
+  --text-tertiary: #a1a1aa;
   --text-inverse: var(--color-gray-900);
+  --text-tooltip: var(--color-gray-50);
+  --border-tooltip: #52525b;
 
-  --border-light: var(--color-gray-700);
-  --border-medium: var(--color-gray-600);
-  --border-heavy: var(--color-gray-500);
+  --border-light: #3f3f46;
+  --border-medium: #52525b;
+  --border-heavy: #71717a;
 
   --brand-primary: var(--color-blue-500);
   --brand-primary-hover: var(--color-blue-400);
@@ -84,9 +96,9 @@
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
 
   /* 滚动条颜色（深色） */
-  --scrollbar-track: var(--color-gray-800);
-  --scrollbar-thumb: var(--color-gray-600);
-  --scrollbar-thumb-hover: var(--color-gray-500);
+  --scrollbar-track: var(--bg-secondary);
+  --scrollbar-thumb: #71717a;
+  --scrollbar-thumb-hover: #a1a1aa;
 }
 
 body {

@@ -3,5 +3,10 @@ type QueueListItem = {
   content: string;
 };
 
-type ColorMode = "light" | "dark" | "auto";
+type AppSettings = {
+  enableQueue: boolean;
+  showSteer: boolean;
+  steerPrompt: string;
+};
 
+type ColorMode = "light" | "dark" | "auto";

@@ -1,10 +1,11 @@
 import { useColorMode } from "@vueuse/core";
 import App from "./App.vue";
+import { aiPlatformMatches } from "@/platforms";
 import "~/assets/style.css";
 import "~/assets/theme.css";
 
 export default defineContentScript({
-  matches: ["*://*.deepseek.com/*"],
+  matches: aiPlatformMatches,
   cssInjectionMode: "ui",
   async main(ctx) {
     if (!document.body) return;

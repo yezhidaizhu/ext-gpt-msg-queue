@@ -2,7 +2,9 @@
 
 const props = withDefaults(defineProps<{
   data: QueueListItem
+  showSteer?: boolean
 }>(), {
+  showSteer: true,
 })
 
 const emits = defineEmits<{
@@ -33,21 +35,21 @@ const emits = defineEmits<{
     <!-- 操作按钮组 -->
     <div class="text-[var(--text-tertiary)] flex items-center gap-1 h-full shrink-0 ml-1" @pointerdown.stop>
       <!-- 引导按钮 -->
-      <button
-        class="h-full aspect-square px-1 hover:bg-[var(--bg-tertiary)] rounded-md flex justify-center gap-0.5 items-center transition-colors"
+      <button v-if="showSteer"
+        class="h-full aspect-square px-1 hover:bg-[var(--bg-hover)] rounded-md flex justify-center gap-0.5 items-center transition-colors"
         @click="$emit('guide', data)">
-        <svg t="1780749895055" class="size-6.5" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
-          p-id="29256" width="256" height="256">
+        <svg t="1780749895055" class=" size-3.5 " viewBox="0 0 1024 1024" version="1.1"
+          xmlns="http://www.w3.org/2000/svg" p-id="29256" width="256" height="256">
           <path
             d="M810.667 213.333a42.667 42.667 0 0 1 42.368 37.675l0.298 4.992v274.304c0 79.275-50.944 147.499-120.49 152.107l-7.51 0.256H273.707l97.792 97.834a42.667 42.667 0 0 1-56.32 63.872l-4.011-3.541-170.667-170.667a42.667 42.667 0 0 1 0-60.33l170.667-170.667a42.667 42.667 0 0 1 63.872 56.32l-3.541 4.01-97.792 97.835h451.626c19.584 0 39.936-24.618 42.411-59.861l0.256-7.168V256a42.667 42.667 0 0 1 42.667-42.667z"
             fill="currentColor" transform="scale(-1,1) translate(-1024,0)" />
         </svg>
-        <p class="shrink-0 text-[12px]">引导</p>
+        <p class="shrink-0 text-[12px]">Steer</p>
       </button>
 
       <!-- 删除按钮 -->
       <button
-        class="h-full aspect-square hover:bg-[var(--bg-tertiary)] rounded-md flex justify-center items-center transition-colors"
+        class="h-full aspect-square hover:bg-[var(--bg-hover)] rounded-md flex justify-center items-center transition-colors"
         @click="$emit('del', data)">
         <svg t="1780749543250" class="size-3.5" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
           p-id="27412" width="256" height="256">
@@ -59,7 +61,7 @@ const emits = defineEmits<{
 
       <!-- 编辑按钮 -->
       <button
-        class="h-full aspect-square hover:bg-[var(--bg-tertiary)] rounded-md flex justify-center items-center transition-colors"
+        class="h-full aspect-square hover:bg-[var(--bg-hover)] rounded-md flex justify-center items-center transition-colors"
         @click="$emit('edit', data)">
         <svg t="1780750700013" class="size-3.5" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
           p-id="30254" width="256" height="256">

@@ -9,7 +9,9 @@ import draggable from 'vuedraggable'
 const props = withDefaults(defineProps<{
   // 是否禁止拖拽
   disabledDragListItem?: boolean
+  showSteer?: boolean
 }>(), {
+  showSteer: true,
 })
 
 const list = defineModel<{ id: string, content: string }[]>('list', { default: [] });
@@ -27,7 +29,7 @@ const onMin = () => {
   isMinWin.value = true;
 };
 
-const winPosStorage = useLocalStorage('win-pos', {
+const winPosStorage = useLocalStorage('ext-chat-queue-win-pos', {
   right: 8,
   bottom: 8,
   width: 320,
@@ -50,7 +52,7 @@ const onChgWinPos = (pos: any) => {
           @end="isDragging = false">
           <template #item="{ element }">
             <li>
-              <QItem :data="element" @guide="$emit('guide', $event)" @del="$emit('del', $event)"
+              <QItem :data="element" :show-steer="showSteer" @guide="$emit('guide', $event)" @del="$emit('del', $event)"
                 @edit="$emit('edit', $event)" />
             </li>
           </template>
