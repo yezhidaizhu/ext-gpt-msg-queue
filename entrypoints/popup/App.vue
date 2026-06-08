@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { useColorMode } from '@/hooks/useColorMode';
+import logoUrl from '@/logo.png';
 
 const mode = useColorMode();
 const enabled = ref(true);
@@ -14,8 +15,16 @@ const themes = [
 
 <template>
   <div class="h-[400px] w-[300px] bg-[var(--bg-primary)] text-[var(--text-primary)]">
-    <div class="px-3 py-2 text-sm font-semibold">
-      Prompt Queue
+    <div class="flex items-center gap-2 px-3 py-3">
+      <img :src="logoUrl" alt="" class="h-8 w-8 rounded-lg object-cover shadow-sm" />
+      <div class="min-w-0">
+        <div class="truncate text-sm font-semibold leading-5">
+          Prompt Queue
+        </div>
+        <div class="truncate text-xs leading-4 text-[var(--text-secondary)]">
+          Chat prompt manager
+        </div>
+      </div>
     </div>
 
     <div class="border-t border-[var(--border-light)]">

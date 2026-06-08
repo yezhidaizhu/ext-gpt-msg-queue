@@ -28,7 +28,7 @@ const { width: windowWidth, height: windowHeight } = useWindowSize()
 const GAP = 8
 const MIN_WIDTH = 200
 const MIN_HEIGHT = 100
-const THROTTLE_WAIT = 16
+const THROTTLE_WAIT = 20
 
 const right = ref(GAP)
 const bottom = ref(GAP)

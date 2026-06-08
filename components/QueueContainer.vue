@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useLocalStorage } from '@vueuse/core';
+import logoUrl from '@/logo.png';
 import QItem from './queue/q-item.vue';
 import QueueWin from './queue/win.vue';
 
@@ -58,11 +59,18 @@ const onChgWinPos = (pos: any) => {
     </QueueWin>
   </Transition>
 
+  <!-- 折叠 win 之后的样式 -->
   <Transition name="fade-in">
-    <button v-if="isMinWin"
-      class="fixed right-4 bottom-4 flex size-14 items-center justify-center rounded-lg bg-[var(--brand-primary)] text-4xl text-[var(--text-inverse)] shadow-lg"
+    <button v-if="isMinWin" type="button" title="Open Prompt Queue"
+      class="group fixed right-4 bottom-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-white/40 bg-white/75 shadow-[0_16px_40px_rgba(0,0,0,0.22)] backdrop-blur-xl transition hover:-translate-y-1 hover:scale-105 hover:bg-white/90 dark:border-white/10 dark:bg-[var(--bg-primary)]/80 dark:hover:bg-[var(--bg-secondary)]"
       @click="isMinWin = false">
-      sd
+      <img :src="logoUrl" alt="" class="h-[34px] w-[34px] rounded-lg object-cover shadow-sm" />
+      <span
+        class="absolute -right-1 -top-1 flex size-[18px] items-center justify-center rounded-full bg-[var(--brand-primary)] text-[10px] font-semibold leading-none text-white shadow-sm">
+        {{ list.length }}
+      </span>
+      <span
+        class="absolute -bottom-1 h-1 w-5 rounded-full bg-black/30 opacity-70 transition group-hover:w-7 dark:bg-white/50" />
     </button>
   </Transition>
 </template>
