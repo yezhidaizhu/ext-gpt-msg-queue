@@ -104,15 +104,24 @@ export function useChatStatus(
   /**
    * 设置 textarea 的值并发送
    */
-  const sendPrompt = (newVal: string) => {
-    if (!newVal) return;
+  const sendPrompt = async (newVal: string) => {
+    if (!newVal) return false;
     // 先保存原来的 promt
     const oldV = aiPlatform.getPrompt();
     aiPlatform.setPrompt(newVal);
-    setTimeout(() => {
-      aiPlatform.clickSend();
+
+    await new Promise((resolve) => setTimeout(resolve));
+    if (aiPlatform.getPrompt() !== newVal) return false;
+
+    const sent = aiPlatform.clickSend();
+    if (!sent) {
       aiPlatform.setPrompt(oldV);
-    });
+      return false;
+    }
+
+    aiPlatform.setPrompt(oldV);
+
+    return true;
   };
 
   const interruptAndSendPrompt = async (newVal: string) => {
@@ -120,15 +129,16 @@ export function useChatStatus(
 
     const oldV = aiPlatform.getPrompt();
 
-    await stopGeneratingAndWaitIdle();
+    const isIdle = await stopGeneratingAndWaitIdle();
+    if (!isIdle) return false;
 
     aiPlatform.setPrompt(newVal);
-    aiPlatform.clickSend();
+    const sent = aiPlatform.clickSend();
     setTimeout(() => {
       aiPlatform.setPrompt(oldV);
     });
 
-    return true;
+    return sent;
   };
 
   return {

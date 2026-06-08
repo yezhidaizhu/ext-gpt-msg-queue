@@ -7,7 +7,8 @@ export type AiPlatformAdapter = {
   matches: string[];
   getInput: () => AiPlatformInput | null;
   getStatus: () => ChatBtnStatus;
-  clickSend: () => void;
+  getConversationKey: () => string;
+  clickSend: () => boolean;
   clickStop: () => void;
   setPrompt: (prompt: string) => void;
   getPrompt: () => string;

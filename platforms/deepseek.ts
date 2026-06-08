@@ -19,8 +19,15 @@ export const deepseekAdapter: AiPlatformAdapter = {
     if (!this.getInput()) return ChatBtnStatus.UNKOWN;
     return querySelector(selectors.stopButton) ? ChatBtnStatus.GENERATING : ChatBtnStatus.IDLE;
   },
+  getConversationKey() {
+    return `${location.origin}${location.pathname}`;
+  },
   clickSend() {
-    querySelector<HTMLButtonElement>(selectors.sendButton)?.click();
+    const sendButton = querySelector<HTMLButtonElement>(selectors.sendButton);
+    if (!sendButton || sendButton.disabled || sendButton.getAttribute("aria-disabled") === "true") return false;
+
+    sendButton.click();
+    return true;
   },
   clickStop() {
     querySelector<HTMLButtonElement>(selectors.stopButton)?.click();

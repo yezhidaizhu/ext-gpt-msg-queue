@@ -2,6 +2,8 @@ import { onScopeDispose, reactive, watch } from "vue";
 
 export const defaultAppSettings: AppSettings = {
   enableQueue: true,
+  keepQueuePerChat: false,
+  resumeQueueOnChatReturn: true,
   showSteer: true,
   steerPrompt:
     "Please stop the current direction and follow this steering instruction:\n\n{prompt}",
