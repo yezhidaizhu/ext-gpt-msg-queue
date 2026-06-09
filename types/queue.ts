@@ -6,7 +6,6 @@ type QueueListItem = {
 type AppSettings = {
   enableQueue: boolean;
   keepQueuePerChat: boolean;
-  resumeQueueOnChatReturn: boolean;
   showSteer: boolean;
   steerPrompt: string;
 };

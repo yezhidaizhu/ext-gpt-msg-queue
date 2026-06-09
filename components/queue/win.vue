@@ -232,7 +232,7 @@ watch([width, height, right, bottom], () => {
 
 <template>
   <div ref="containerRef" :style="style"
-    class="fixed flex flex-col rounded-xl border border-[var(--border-light)] bg-[var(--bg-primary)] shadow-lg">
+    class="fixed z-[2000] flex flex-col rounded-xl border border-[var(--border-light)] bg-[var(--bg-primary)] shadow-lg">
     <!-- mac 风格头部，可拖拽 -->
     <div ref="dragHandleRef"
       class="group/bar relative shrink-0 flex items-center justify-center h-6 px-2 border-b border-[var(--border-light)] select-none touch-none"
@@ -282,6 +282,10 @@ watch([width, height, right, bottom], () => {
       <!-- 中间拖拽提示条 -->
       <div v-show="!isMaxWin"
         class="h-1 w-10 rounded-full bg-[var(--scrollbar-thumb)]/80 group-hover/bar:bg-[var(--scrollbar-thumb-hover)]/80" />
+
+      <div class="absolute right-2 mt-px flex items-center cursor-auto" @pointerdown.stop>
+        <slot name="header-action" />
+      </div>
     </div>
 
     <!-- 内容 -->

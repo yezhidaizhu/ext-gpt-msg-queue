@@ -67,15 +67,15 @@ const themes = [
         <div class="px-1 text-[11px] font-semibold uppercase text-[var(--text-tertiary)]">
           Queue
         </div>
-        <div class="overflow-hidden rounded-lg border border-[var(--border-light)] bg-[var(--bg-primary)]">
-        <div class="flex h-11 items-center justify-between px-3">
+        <div class="rounded-lg border border-[var(--border-light)] bg-[var(--bg-primary)]">
+        <div class="flex h-11 items-center justify-between rounded-t-lg px-3">
           <div class="flex items-center gap-1.5">
             <span class="text-sm">Prompt Queue</span>
             <span class="group relative grid h-5 w-5 place-items-center">
               <Info :size="13" class="text-[var(--text-tertiary)] group-hover:text-[var(--text-secondary)]" />
               <span
                 class="pointer-events-none absolute bottom-6 left-1/2 z-10 hidden w-52 -translate-x-1/2 rounded border border-[var(--border-tooltip)] bg-[var(--bg-tooltip)] px-2 py-1 text-center text-xs text-[var(--text-tooltip)] shadow-lg group-hover:block">
-                Queues prompts while AI is responding. Turning off clears the queue.
+                Queues prompts while AI is responding. Turning off clears all queues.
               </span>
             </span>
           </div>
@@ -89,14 +89,14 @@ const themes = [
         </div>
 
         <div v-if="appSettings.enableQueue"
-          class="flex h-11 items-center justify-between border-t border-[var(--border-light)] px-3">
+          class="flex h-11 items-center justify-between rounded-b-lg border-t border-[var(--border-light)] px-3">
           <div class="flex items-center gap-1.5">
             <span class="text-sm">Keep Queue per Chat</span>
             <span class="group relative grid h-5 w-5 place-items-center">
               <Info :size="13" class="text-[var(--text-tertiary)] group-hover:text-[var(--text-secondary)]" />
               <span
                 class="pointer-events-none absolute bottom-6 left-1/2 z-10 hidden w-52 -translate-x-1/2 rounded border border-[var(--border-tooltip)] bg-[var(--bg-tooltip)] px-2 py-1 text-center text-xs text-[var(--text-tooltip)] shadow-lg group-hover:block">
-                Keeps a separate queue for each chat. Turning off clears the queue when switching chats.
+                Keeps a separate queue for each chat. Turning off clears all queues.
               </span>
             </span>
           </div>
@@ -109,26 +109,6 @@ const themes = [
           </button>
         </div>
 
-        <div v-if="appSettings.enableQueue && appSettings.keepQueuePerChat"
-          class="flex h-11 items-center justify-between border-t border-[var(--border-light)] px-3">
-          <div class="flex items-center gap-1.5">
-            <span class="text-sm">Continue on Return</span>
-            <span class="group relative grid h-5 w-5 place-items-center">
-              <Info :size="13" class="text-[var(--text-tertiary)] group-hover:text-[var(--text-secondary)]" />
-              <span
-                class="pointer-events-none absolute bottom-6 left-1/2 z-10 hidden w-52 -translate-x-1/2 rounded border border-[var(--border-tooltip)] bg-[var(--bg-tooltip)] px-2 py-1 text-center text-xs text-[var(--text-tooltip)] shadow-lg group-hover:block">
-                Automatically resumes queued prompts when returning to a chat.
-              </span>
-            </span>
-          </div>
-
-          <button class="relative h-5 w-9 rounded-full"
-            :class="appSettings.resumeQueueOnChatReturn ? 'bg-[var(--brand-primary)]' : 'bg-[var(--bg-tertiary)]'"
-            @click="appSettings.resumeQueueOnChatReturn = !appSettings.resumeQueueOnChatReturn">
-            <span class="absolute left-0.5 top-0.5 h-4 w-4 rounded-full bg-[var(--color-white)] transition-transform"
-              :class="appSettings.resumeQueueOnChatReturn ? 'translate-x-4' : ''" />
-          </button>
-        </div>
       </div>
       </section>
 

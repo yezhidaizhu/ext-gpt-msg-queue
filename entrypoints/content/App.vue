@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import QueueContainer from '@/components/QueueContainer.vue';
-import QueueResumeButton from '@/components/queue/resume-button.vue';
+import QueuePauseToggleButton from '@/components/queue/pause-toggle-button.vue';
 import { useAppSettings } from '@/hooks/useAppSettings';
 import { useChatStatus } from '@/hooks/useChatStatus';
 import { useColorMode } from '@/hooks/useColorMode';
 import { useConversationRoute } from '@/hooks/useConversationRoute';
 import { usePromptQueue } from '@/hooks/usePromptQueue';
+import { usePromptQueueStorage } from '@/hooks/usePromptQueueStorage';
 import { getAiPlatformAdapter } from '@/platforms';
-import { nextTick, watch } from 'vue';
+import { nextTick, onMounted, watch } from 'vue';
 
 const props = withDefaults(defineProps<{
   shadowRoot: ShadowRoot
@@ -21,7 +22,7 @@ if (!aiPlatform) {
 
 const appSettings = useAppSettings();
 const { conversationKey } = useConversationRoute(aiPlatform);
-const queuesByConversationKey = new Map<string, QueueListItem[]>();
+const queueStorage = usePromptQueueStorage();
 let activeConversationKey = conversationKey.value;
 let restoringQueue = false;
 let addPromptToQueue = (_val?: string) => {};
@@ -45,12 +46,41 @@ const { disabledDragListItem, isQueuePaused, isQueueWaiting, list, addPrompt, cl
 });
 addPromptToQueue = addPrompt;
 
+const toggleQueuePaused = () => {
+  if (isQueuePaused.value) {
+    resumeQueue();
+    return;
+  }
+
+  pauseQueue();
+};
+
+const restoreQueue = async (key: string) => {
+  restoringQueue = true;
+  list.value = queueStorage.getQueue(key);
+  await nextTick();
+  restoringQueue = false;
+};
+
+onMounted(async () => {
+  await restoreQueue(activeConversationKey);
+
+  if (list.value.length) {
+    pauseQueue();
+  }
+});
+
 watch(
   list,
   (value) => {
     if (restoringQueue) return;
 
-    queuesByConversationKey.set(activeConversationKey, [...value]);
+    if (value.length) {
+      queueStorage.setQueue(activeConversationKey, value);
+      return;
+    }
+
+    queueStorage.clearQueue(activeConversationKey);
   },
   { deep: true },
 );
@@ -59,34 +89,46 @@ watch(
   () => appSettings.enableQueue,
   (enabled) => {
     if (enabled) return;
-    queuesByConversationKey.clear();
+
+    queueStorage.clearAllQueues();
+    clearQueue();
+  },
+);
+
+watch(
+  () => appSettings.keepQueuePerChat,
+  (enabled) => {
+    if (enabled) return;
+
+    queueStorage.clearAllQueues();
+    clearQueue();
   },
 );
 
 watch(conversationKey, async (nextKey, prevKey) => {
   pauseQueue();
 
-  queuesByConversationKey.set(prevKey, [...list.value]);
+  if (list.value.length) {
+    queueStorage.setQueue(prevKey, list.value);
+  } else {
+    queueStorage.clearQueue(prevKey);
+  }
 
   activeConversationKey = nextKey;
 
   if (appSettings.keepQueuePerChat) {
-    restoringQueue = true;
-    list.value = queuesByConversationKey.get(nextKey) ?? [];
-    await nextTick();
-    restoringQueue = false;
+    await restoreQueue(nextKey);
 
-    if (!appSettings.resumeQueueOnChatReturn && list.value.length) {
-      return;
+    if (!list.value.length) {
+      resumeQueue();
     }
+
+    return;
   } else {
-    queuesByConversationKey.clear();
+    queueStorage.clearAllQueues();
     clearQueue();
     return;
   }
-
-  await nextTick();
-  resumeQueue();
 });
 
 useColorMode({
@@ -98,11 +140,11 @@ useColorMode({
 <template>
   <QueueContainer v-if="appSettings.enableQueue && list.length" v-model:list="list" :disabledDragListItem="disabledDragListItem"
     :show-steer="appSettings.showSteer" @guide="steerPrompt" @del="delPrompt" @edit="editPrompt">
-    <template v-if="isQueuePaused && isQueueWaiting" #window-action>
-      <QueueResumeButton @click="resumeQueue" />
+    <template #header-action>
+      <QueuePauseToggleButton :paused="isQueuePaused" @toggle="toggleQueuePaused" />
     </template>
     <template v-if="isQueuePaused && isQueueWaiting" #minimized-action>
-      <QueueResumeButton variant="minimized" @click="resumeQueue" />
+      <QueuePauseToggleButton :paused="true" variant="minimized" @toggle="resumeQueue" />
     </template>
   </QueueContainer>
 </template>

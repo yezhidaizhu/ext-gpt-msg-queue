@@ -46,6 +46,10 @@ const onChgWinPos = (pos: any) => {
   <Transition name="fade-in" appear>
     <QueueWin :init-pos="winPosStorage" :max-win-style="{ height: '100vh', top: '0', right: '0', width: '400px' }"
       v-if="!isMinWin" @mini-win="onMin" @close-win="list = []" @chg-pos="onChgWinPos">
+      <template #header-action>
+        <slot name="header-action" />
+      </template>
+
       <div class="relative h-full">
         <div class="h-full px-1 py-2 text-[14px] overflow-y-auto scroll-thin ">
         <draggable v-model="list" item-key="id" tag="ul" class="space-y-1" ghost-class="opacity-40"
@@ -59,8 +63,6 @@ const onChgWinPos = (pos: any) => {
           </template>
         </draggable>
         </div>
-
-        <slot name="window-action" />
       </div>
     </QueueWin>
   </Transition>
