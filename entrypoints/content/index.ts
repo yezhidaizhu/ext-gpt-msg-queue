@@ -1,4 +1,3 @@
-import { useColorMode } from "@vueuse/core";
 import App from "./App.vue";
 import { aiPlatformMatches } from "@/platforms";
 import "~/assets/style.css";
@@ -11,7 +10,7 @@ export default defineContentScript({
     if (!document.body) return;
 
     const ui = await createShadowRootUi(ctx, {
-      name: "petdex-ui",
+      name: "chat-prompt-queue-ui",
       position: "inline",
       anchor: "body",
       onMount: (container, shadow) => {

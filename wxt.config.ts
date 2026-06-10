@@ -13,7 +13,12 @@ export default defineConfig({
     };
   },
   manifest: {
-    name:"Chat Prompt Queue",
+    name: "Chat Prompt Queue",
+    description:
+      "Queue, pause, and steer prompts on supported AI chat pages.",
     permissions: ["storage"],
+    action: {
+      default_title: "Chat Prompt Queue",
+    },
   },
 });
