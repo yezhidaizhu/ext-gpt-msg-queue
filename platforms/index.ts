@@ -1,7 +1,8 @@
+import { chatgptAdapter } from "./chatgpt";
 import { deepseekAdapter } from "./deepseek";
 import type { AiPlatformAdapter } from "./types";
 
-export const aiPlatformAdapters = [deepseekAdapter];
+export const aiPlatformAdapters = [deepseekAdapter, chatgptAdapter];
 export const aiPlatformMatches = aiPlatformAdapters.flatMap(
   (adapter) => adapter.matches,
 );
