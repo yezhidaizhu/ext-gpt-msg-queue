@@ -1,0 +1,8 @@
+{
+  "extName": {
+    "message": "AI Message Queue for Chat"
+  },
+  "extDescription": {
+    "message": "Manage chat message queues for ChatGPT and DeepSeek with local prompt storage."
+  }
+}

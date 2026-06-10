@@ -29,11 +29,33 @@ function setTextAreaValue(input: HTMLTextAreaElement, prompt: string): void {
   input.value = prompt;
 }
 
+function setContentEditableValue(input: HTMLElement, prompt: string): void {
+  const selection = window.getSelection();
+  const range = document.createRange();
+  range.selectNodeContents(input);
+  selection?.removeAllRanges();
+  selection?.addRange(range);
+
+  if (document.execCommand("delete") && (!prompt || document.execCommand("insertText", false, prompt))) {
+    return;
+  }
+
+  input.replaceChildren();
+
+  if (!prompt) return;
+
+  const paragraph = document.createElement("p");
+  paragraph.textContent = prompt;
+  input.append(paragraph);
+}
+
 export function fillPromptInput(input: AiPlatformInput, prompt: string): void {
   input.focus();
 
   if (input instanceof HTMLTextAreaElement) {
     setTextAreaValue(input, prompt);
+  } else if (input.isContentEditable) {
+    setContentEditableValue(input, prompt);
   } else {
     input.textContent = prompt;
   }

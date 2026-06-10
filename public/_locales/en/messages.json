@@ -1,0 +1,8 @@
+{
+  "extName": {
+    "message": "Prompt Queue for DeepSeek & ChatGPT"
+  },
+  "extDescription": {
+    "message": "Queue, pause, reorder, and steer prompts for DeepSeek and ChatGPT chats."
+  }
+}

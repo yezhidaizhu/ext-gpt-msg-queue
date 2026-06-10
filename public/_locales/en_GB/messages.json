@@ -1,0 +1,8 @@
+{
+  "extName": {
+    "message": "AI Chat Prompt Manager"
+  },
+  "extDescription": {
+    "message": "Manage AI chat prompts and message queues for DeepSeek and ChatGPT."
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "extName": {
+    "message": "Chat Msg Queue for AI"
+  },
+  "extDescription": {
+    "message": "Save chat messages and prompt queues for DeepSeek and ChatGPT, then resume manually."
+  }
+}

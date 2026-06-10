@@ -5,7 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   modules: ["@wxt-dev/module-vue"],
   webExt: {
-    startUrls: ["chat.deepseek.com"],
+    startUrls: ["chat.deepseek.com", "chatgpt.com"],
   },
   vite: () => {
     return {
@@ -13,12 +13,12 @@ export default defineConfig({
     };
   },
   manifest: {
-    name: "Chat Prompt Queue",
-    description:
-      "Queue, pause, and steer prompts on supported AI chat pages.",
+    default_locale: "en",
+    name: "__MSG_extName__",
+    description: "__MSG_extDescription__",
     permissions: ["storage"],
     action: {
-      default_title: "Chat Prompt Queue",
+      default_title: "__MSG_extName__",
     },
   },
 });
